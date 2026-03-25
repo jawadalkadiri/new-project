@@ -15,9 +15,9 @@
         <li class="nav-item">
           <a class="nav-link" href="{{ route('admin.post.index') }}">Posts</a>
         </li>
-         {{-- <li class="nav-item">
+         <li class="nav-item">
           <a class="nav-link" href="{{ route('admin.task.index') }}">Tasks</a>
-        </li> --}}
+        </li>
          <li class="nav-item">
           <a class="nav-link " aria-disabled="true">Enrollments</a>
         </li>

@@ -8,71 +8,61 @@ use App\Models\Task;
 class TaskController extends Controller
 {
 
-    public function create(){
-        return view('pages.task.create');
-    }
-    public function index(){
-        $tasks = Task::all();
-        return view('pages.task.index',['tasks'=>$tasks]);
-    }
-    public function store(Request $request){
-      $title = $request->title;
-      $description = $request->description;
-      $id = 2;
+   public function create(){
+    return view('admin.pages.tasks.create');
+}
 
-        Task::create(['title'=>$title,'description'=>$description,'user_id'=>$id]);
-       return to_route('task.index')->with('success', 'Task created successfully!');
-    }
-    public function show($id){
-        $singleTask = Task::findorFail($id);
+public function index(){
+    $tasks = Task::all();
+    return view('admin.pages.tasks.index', ['tasks' => $tasks]);
+}
 
-        if(is_null($singleTask)){
-            return view('pages.task.show',['task'=>$singleTask]);
-        }
-        return view('pages.task.show',['task'=>$singleTask]);
-    }
+public function store(Request $request){
+    $request->validate([
+        'title' => 'required',
+        'description' => 'required',
+        'user_id' => 'required'
+    ]);
 
-    public function edit($id){
-        $singleTask = Task::findorFail($id);
-        return view('pages.task.edit',['task' => $singleTask]);
-    }
+    Task::create([
+        'title' => $request->title,
+        'description' => $request->description,
+        'user_id' => $request->user_id
+    ]);
 
-    public function update(Request $request,$id){
-        $request->validate([
-            'title'=>'required',
-            'description'=>'required',
-        ]);
-        $task = Task::findorFail($id);
-        $task->update($request->all());
+    return to_route('admin.task.index')->with('success', 'Task created successfully!');
+}
+
+public function show($id){
+    $singleTask = Task::findOrFail($id);
+    return view('admin.pages.tasks.show', ['task' => $singleTask]);
+}
+
+public function edit($id){
+    $singleTask = Task::findOrFail($id);
+    return view('admin.pages.tasks.edit', ['task' => $singleTask]);
+}
+
+public function update(Request $request, $id){
+    $request->validate([
+        'title' => 'required',
+        'description' => 'required',
+    ]);
+
+    $task = Task::findOrFail($id);
+    $task->update($request->all());
+
+    return to_route('admin.task.index');
+}
+
+public function destroy($id){
+    $task = Task::findOrFail($id);
+    $task->delete();
+
+    return to_route('admin.task.index');
+}
 
 
-        return to_route('task.index');
-    }
-
-    public function softdestroy($id){
-        $task = Task::findorFail($id);
-        $task->update(['status' => '0']);
-
-        return to_route('task.index');
-    }
-
-    public function destroy($id){
-        $task = Task::findorFail($id);
-        $task->delete();
-
-        return to_route('task.index');
-    }
-
-    public function trashindex(){
-        $tasks = Task::all();
-        return view('pages.task.trash.index',['tasks'=>$tasks]);
-    }
-
-    public function taskrestore($id){
-        $task = Task::findorFail($id);
-        $task->update(['status'=>'1']);
-        return to_route('task.index');
-    }
 
    public function indexx(){
     $users = [

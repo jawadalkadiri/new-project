@@ -42,6 +42,14 @@ Route::get('/admin/posts/edit/{post}',[PostController::class,'edit'])->name('adm
 Route::put('/admin/posts/update/{post}',[PostController::class,'update'])->name('admin.post.update');
 Route::delete('/admin/posts/destroy/{post}',[PostController::class,'destroy'])->name('admin.post.destroy');
 
+Route::get('/admin/tasks', [TaskController::class, 'index'])->name('admin.task.index');
+Route::get('/admin/tasks/show/{task}', [TaskController::class, 'show'])->name('admin.task.show');
+Route::get('/admin/tasks/create', [TaskController::class, 'create'])->name('admin.task.create');
+Route::post('/admin/tasks/store', [TaskController::class, 'store'])->name('admin.task.store');
+Route::get('/admin/tasks/edit/{task}', [TaskController::class, 'edit'])->name('admin.task.edit');
+Route::put('/admin/tasks/update/{task}', [TaskController::class, 'update'])->name('admin.task.update');
+Route::delete('/admin/tasks/destroy/{task}', [TaskController::class, 'destroy'])->name('admin.task.destroy');
+
 
 
 // Route::get('/about',function(){

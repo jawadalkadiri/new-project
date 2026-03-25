@@ -1,7 +1,7 @@
 @extends('admin.layout.app')
 
 @section('title')
-Create
+Edit
 @endsection
 
 @section('content')
@@ -10,29 +10,29 @@ Create
         <div class="col-md-6">
             <div class="card shadow-sm">
                 <div class="card-header bg-primary text-white">
-                    <h4 class="mb-0">Edit Post</h4>
+                    <h4 class="mb-0">Edit Task</h4>
                 </div>
                 <div class="card-body">
-                    <form method="POST" action="{{ route('admin.post.update',['post'=>$post->id]) }}">
+                    <form method="POST" action="{{ route('admin.task.update', ['task' => $task]) }}">
                         @csrf
                         @method('PUT')
 
                         <div class="mb-3">
                             <label for="title" class="form-label">Title</label>
-                            <input type="text" name="title" id="title" class="form-control" placeholder="Enter title" value="{{ $post->title }}" required>
+                            <input type="text" name="title" id="title" class="form-control" placeholder="Enter title" value="{{ $task->title }}" required>
                         </div>
 
                         <div class="mb-3">
                             <label for="description" class="form-label">Description</label>
-                            <input type="text" name="description" id="description" class="form-control" placeholder="Enter description" value="{{ $post->description }}" required>
+                            <input type="text" name="description" id="description" class="form-control" placeholder="Enter description" value="{{ $task->description }}" required>
                         </div>
 
                         <div class="mb-3">
-                            <label for="user_id" class="form-label">User_id</label>
-                            <input type="text" name="user_id" id="user_id" class="form-control" placeholder="user_id" value="{{ $post->user_id }}" required>
+                            <label for="user_id" class="form-label">User ID</label>
+                            <input type="text" name="user_id" id="user_id" class="form-control" placeholder="Enter user_id" value="{{ $task->user_id }}" required>
                         </div>
 
-                        <button type="submit" class="btn btn-primary w-100">Edit Post</button>
+                        <button type="submit" class="btn btn-primary w-100">Update Task</button>
                     </form>
                 </div>
             </div>
