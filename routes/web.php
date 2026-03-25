@@ -3,10 +3,18 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers;
 use App\Http\Controllers\AboutController;
-use App\Http\Controllers\PostController;
-use App\Http\Controllers\profileController;
-use App\Http\Controllers\TaskController;
-use App\Http\Controllers\UserController;
+use App\Http\Controllers\profileController as profileController;
+
+//admin controllers
+use App\Http\Controllers\admin\PostController as AdminPostController;
+use App\Http\Controllers\admin\TaskController as AdminTaskController;
+use App\Http\Controllers\admin\UserController as AdminUserController;
+use App\Http\Controllers\admin\EnrollmentController as EnrollmentController;
+
+//audience controllers
+use App\Http\Controllers\audience\PostController as AudiencePostController;
+use App\Http\Controllers\audience\TaskController as AudienceTaskController;
+use App\Http\Controllers\audience\HomeController as AudienceHomeController;
 
 use function Ramsey\Uuid\v1;
 
@@ -16,40 +24,52 @@ use function Ramsey\Uuid\v1;
 // Route::get('/task/{task}',[TaskController::class,'show'])->name('task.show');
 //CRUDS, create read update delete --> admin
 
-Route::get('/',function(){
-    return view('audience.home');
-})->name('audience.home');
+
 
 Route::get('/about-us/{id}',[AboutController::class,'show'])->name('about');
 
+
+//admin routes
 Route::get('/dashboard',function(){
     return view('admin.pages.dashboard');
 })->name('admin.dashboard');
 
-Route::get('/admin/users',[UserController::class,'index'])->name('admin.user.index');
-Route::get('/admin/users/create',[UserController::class,'create'])->name('admin.user.create');
-Route::post('/admin/users/store',[UserController::class,'store'])->name('admin.user.store');
-Route::get('/admin/users/{user}',[UserController::class,'show'])->name('admin.user.show');
-Route::get('/admin/users/edit/{user}',[UserController::class,'edit'])->name('admin.user.edit');
-Route::put('/admin/users/update/{user}',[UserController::class,'update'])->name('admin.user.update');
-Route::delete('/admin/users/destroy/{user}',[UserController::class,'destroy'])->name('admin.user.destroy');
+Route::get('/admin/users',[AdminUserController::class,'index'])->name('admin.user.index');
+Route::get('/admin/users/create',[AdminUserController::class,'create'])->name('admin.user.create');
+Route::post('/admin/users/store',[AdminUserController::class,'store'])->name('admin.user.store');
+Route::get('/admin/users/{user}',[AdminUserController::class,'show'])->name('admin.user.show');
+Route::get('/admin/users/edit/{user}',[AdminUserController::class,'edit'])->name('admin.user.edit');
+Route::put('/admin/users/update/{user}',[AdminUserController::class,'update'])->name('admin.user.update');
+Route::delete('/admin/users/destroy/{user}',[AdminUserController::class,'destroy'])->name('admin.user.destroy');
 
-Route::get('/admin/posts',[PostController::class,'index'])->name('admin.post.index');
-Route::get('/admin/posts/show/{post}',[PostController::class,'show'])->name('admin.post.show');
-Route::get('admin/posts/create',[PostController::class,'create'])->name('admin.post.create');
-Route::post('admin/posts/store',[PostController::class,'store'])->name('admin.post.store');
-Route::get('/admin/posts/edit/{post}',[PostController::class,'edit'])->name('admin.post.edit');
-Route::put('/admin/posts/update/{post}',[PostController::class,'update'])->name('admin.post.update');
-Route::delete('/admin/posts/destroy/{post}',[PostController::class,'destroy'])->name('admin.post.destroy');
+Route::get('/admin/posts',[AdminPostController::class,'index'])->name('admin.post.index');
+Route::get('/admin/posts/show/{post}',[AdminPostController::class,'show'])->name('admin.post.show');
+Route::get('admin/posts/create',[AdminPostController::class,'create'])->name('admin.post.create');
+Route::post('admin/posts/store',[AdminPostController::class,'store'])->name('admin.post.store');
+Route::get('/admin/posts/edit/{post}',[AdminPostController::class,'edit'])->name('admin.post.edit');
+Route::put('/admin/posts/update/{post}',[AdminPostController::class,'update'])->name('admin.post.update');
+Route::delete('/admin/posts/destroy/{post}',[AdminPostController::class,'destroy'])->name('admin.post.destroy');
 
-Route::get('/admin/tasks', [TaskController::class, 'index'])->name('admin.task.index');
-Route::get('/admin/tasks/show/{task}', [TaskController::class, 'show'])->name('admin.task.show');
-Route::get('/admin/tasks/create', [TaskController::class, 'create'])->name('admin.task.create');
-Route::post('/admin/tasks/store', [TaskController::class, 'store'])->name('admin.task.store');
-Route::get('/admin/tasks/edit/{task}', [TaskController::class, 'edit'])->name('admin.task.edit');
-Route::put('/admin/tasks/update/{task}', [TaskController::class, 'update'])->name('admin.task.update');
-Route::delete('/admin/tasks/destroy/{task}', [TaskController::class, 'destroy'])->name('admin.task.destroy');
+Route::get('/admin/tasks', [AdminTaskController::class, 'index'])->name('admin.task.index');
+Route::get('/admin/tasks/show/{task}', [AdminTaskController::class, 'show'])->name('admin.task.show');
+Route::get('/admin/tasks/create', [AdminTaskController::class, 'create'])->name('admin.task.create');
+Route::post('/admin/tasks/store', [AdminTaskController::class, 'store'])->name('admin.task.store');
+Route::get('/admin/tasks/edit/{task}', [AdminTaskController::class, 'edit'])->name('admin.task.edit');
+Route::put('/admin/tasks/update/{task}', [AdminTaskController::class, 'update'])->name('admin.task.update');
+Route::delete('/admin/tasks/destroy/{task}', [AdminTaskController::class, 'destroy'])->name('admin.task.destroy');
 
+Route::get('/admin/enrollments', [EnrollmentController::class, 'index'])->name('admin.enrollment.index');
+Route::get('/admin/enrollments/show/{enrollment}', [EnrollmentController::class, 'show'])->name('admin.enrollment.show');
+Route::get('/admin/enrollments/create', [EnrollmentController::class, 'create'])->name('admin.enrollment.create');
+Route::post('/admin/enrollments/store', [EnrollmentController::class, 'store'])->name('admin.enrollment.store');
+Route::get('/admin/enrollments/edit/{enrollment}', [EnrollmentController::class, 'edit'])->name('admin.enrollment.edit');
+Route::put('/admin/enrollments/update/{enrollment}', [EnrollmentController::class, 'update'])->name('admin.enrollment.update');
+Route::delete('/admin/enrollments/destroy/{enrollment}', [EnrollmentController::class, 'destroy'])->name('admin.enrollment.destroy');
+
+//audience routes
+Route::get('/',[AudienceHomeController::class,'index'])->name('audience.home');
+Route::get('/audience/posts',[AudiencePostController::class,'index'])->name('audience.post.index');
+Route::get('/audience/tasks',[AudienceTaskController::class,'index'])->name('audience.task.index');
 
 
 // Route::get('/about',function(){

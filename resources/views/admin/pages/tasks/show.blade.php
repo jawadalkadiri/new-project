@@ -9,4 +9,5 @@
   <li class="list-group-item">{{ $task->user_id}}</li>
   <li class="list-group-item"> {{ $task->user->name }}</li>
 
+
 @endsection
